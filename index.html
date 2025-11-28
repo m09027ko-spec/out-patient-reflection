@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>外来振り返り</title>
+
+<style>
+  body {
+    background: #f2f7ff; /* パステルブルー */
+    font-family: "Helvetica", "Arial", sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    background: #fafafa;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    min-height: 70px;
+    resize: vertical;
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: #7baaf7; /* 柔らかいパステルブルー */
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #6c9bf0;
+  }
+
+  #status {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>外来振り返り</h1>
+
+  <label>日付</label>
+  <input type="date" id="date" />
+
+  <label>名前</label>
+  <input type="text" id="name" placeholder="例：長田" />
+
+  <label>患者数</label>
+  <input type="number" id="count" min="0" />
+
+  <label>できたこと</label>
+  <textarea id="good"></textarea>
+
+  <label>できなかったこと</label>
+  <textarea id="bad"></textarea>
+
+  <label>今日の学び</label>
+  <textarea id="learning"></textarea>
+
+  <label>Next Step</label>
+  <textarea id="next"></textarea>
+
+  <button id="sendBtn">スプレッドシートに送信</button>
+  <div id="status"></div>
+</div>
+
+<script>
+document.getElementById("sendBtn").addEventListener("click", async () => {
+  const payload = {
+    date: document.getElementById("date").value,
+    name: document.getElementById("name").value,
+    count: document.getElementById("count").value,
+    good: document.getElementById("good").value,
+    bad: document.getElementById("bad").value,
+    learning: document.getElementById("learning").value,
+    next: document.getElementById("next").value
+  };
+
+  const url = "https://script.google.com/macros/s/AKfycbwNrLr-i8f0eNDdle_dstwCrYRtmVyE4A1MaEmESKDSL-mB02lN-qkIoUgedykQt9g/exec";  // ←あなたのGASのWeb App URL
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+    });
+
+    document.getElementById("status").textContent = "送信しました（スプレッドシートを確認してください）";
+  } catch (e) {
+    document.getElementById("status").textContent = "送信に失敗しました";
+  }
+});
+</script>
+
+</body>
+</html>
