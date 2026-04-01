@@ -87,6 +87,7 @@
 
   input, textarea {
     width: 100%;
+    min-width: 0;
     padding: 10px 12px;
     background: #f6f8fa;
     border: 1px solid #d0d7de;
@@ -95,6 +96,8 @@
     color: #1f2328;
     font-family: inherit;
     transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   input::placeholder, textarea::placeholder {
