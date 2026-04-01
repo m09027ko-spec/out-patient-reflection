@@ -168,6 +168,75 @@
     min-height: 78px;
   }
 
+  /* ── チェックリスト ── */
+  .checklist-group {
+    margin-bottom: 18px;
+  }
+
+  .checklist-group:last-child { margin-bottom: 0; }
+
+  .checklist-group-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #57606a;
+    margin-bottom: 10px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-item input[type="checkbox"] { display: none; }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #d0d7de;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    background: #ffffff;
+  }
+
+  .check-box svg {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .check-item.checked .check-box {
+    background: #6366f1;
+    border-color: #6366f1;
+  }
+
+  .check-item.checked .check-box svg { opacity: 1; }
+
+  .check-item .check-text {
+    font-size: 0.85rem;
+    color: #1f2328;
+    line-height: 1.5;
+    transition: color 0.15s;
+  }
+
+  .check-item.checked .check-text {
+    color: #8c959f;
+    text-decoration: line-through;
+    text-decoration-color: #c8c8c8;
+  }
+
   /* ── 送信ボタン ── */
   .submit-btn {
     width: 100%;
@@ -346,6 +415,97 @@
     </div>
   </div>
 
+  <!-- チェックリスト -->
+  <div class="card">
+    <div class="section-label">チェックリスト</div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-label">診療内容</div>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">病歴・身体所見をもとに臨床推論を行い、鑑別診断を挙げた</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">初診患者を担当した（紹介状なし、または診断未確定）</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">慢性疾患の再診患者を担当した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">検査・治療の方針を自分で立案した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">検査・処置の実施中または実施後に患者の状態を確認した</span>
+      </label>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-label">患者対応</div>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">患者・家族に病状と方針を説明し、同意を得た</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">患者の生活背景・意向を把握し、プランに反映した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">プライバシーに配慮した診察を行った</span>
+      </label>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-label">連携・記録</div>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">適切なタイミングで指導医に報告・相談した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">外来診療録を記載し、指導医のチェックを受けた</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">他科へのコンサルテーション・紹介状・返書が必要な場合に対応した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">薬局・他職種へ必要な情報共有を行った</span>
+      </label>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-label">学習・振り返り</div>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">今回の外来で生じた疑問・課題をNext Stepとして記録した</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" />
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">前回のNext Stepを実践できたか確認した</span>
+      </label>
+    </div>
+  </div>
+
   <button class="submit-btn" id="sendBtn">振り返りを記録する</button>
 
 </div>
@@ -365,6 +525,14 @@
 </div>
 
 <script>
+  // チェックリスト
+  document.querySelectorAll(".check-item").forEach(item => {
+    item.addEventListener("click", () => {
+      item.classList.toggle("checked");
+      item.querySelector("input").checked = item.classList.contains("checked");
+    });
+  });
+
   // 今日の日付を自動入力
   const today = new Date();
   const yyyy = today.getFullYear();
