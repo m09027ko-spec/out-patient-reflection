@@ -75,6 +75,81 @@
     color: #333;
     text-align: center;
   }
+
+  #success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .check-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+  }
+
+  .check-circle circle {
+    fill: none;
+    stroke: #7baaf7;
+    stroke-width: 4;
+    stroke-dasharray: 226;
+    stroke-dashoffset: 226;
+    animation: drawCircle 0.5s ease forwards;
+  }
+
+  .check-circle polyline {
+    fill: none;
+    stroke: #7baaf7;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    animation: drawCheck 0.35s ease 0.45s forwards;
+  }
+
+  @keyframes drawCircle {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+  }
+
+  #success-screen h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  #success-screen .sub {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 24px;
+  }
+
+  .message-card {
+    background: #f2f7ff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .message-card .label {
+    font-size: 0.75rem;
+    color: #7baaf7;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
 </style>
 </head>
 
@@ -107,6 +182,19 @@
   <div id="status"></div>
 </div>
 
+<div class="container" id="success-screen">
+  <svg class="check-circle" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="36"/>
+    <polyline points="22,40 34,52 58,28"/>
+  </svg>
+  <h2>送信しました</h2>
+  <p class="sub">外来お疲れさまでした。</p>
+  <div class="message-card">
+    <div class="label">今日のひとこと</div>
+    <div id="daily-message"></div>
+  </div>
+</div>
+
 <script>
 document.getElementById("sendBtn").addEventListener("click", async () => {
   const payload = {
@@ -131,7 +219,20 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
       body: JSON.stringify(payload)
     });
 
-    document.getElementById("status").textContent = "送信しました（スプレッドシートを確認してください）";
+    const messages = [
+      "振り返りを続けることが、最速の成長につながります。",
+      "今日の気づきが、明日の自信になります。",
+      "できなかったことを書けるのは、誠実な医師の証です。",
+      "一歩一歩の積み重ねが、確かな力になっています。",
+      "患者さんのために考え続けるあなたは、すでに良い医師です。",
+      "今日の外来、よく頑張りました。",
+      "記録することで、自分の成長が見えてきます。",
+      "悩んだ分だけ、診療の引き出しが増えています。",
+    ];
+    document.getElementById("daily-message").textContent =
+      messages[Math.floor(Math.random() * messages.length)];
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("success-screen").style.display = "block";
   } catch (e) {
     document.getElementById("status").textContent = "送信に失敗しました";
   }
