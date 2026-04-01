@@ -6,98 +6,214 @@
 <title>外来振り返り</title>
 
 <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    background: #f2f7ff; /* パステルブルー */
-    font-family: "Helvetica", "Arial", sans-serif;
-    margin: 0;
-    padding: 20px;
+    background: #f6f8fa;
+    font-family: -apple-system, "Helvetica Neue", "Helvetica", sans-serif;
+    min-height: 100vh;
+    padding: 32px 16px 56px;
+    color: #1f2328;
   }
 
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 24px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  /* ── ヘッダー ── */
+  .page-header {
+    margin-bottom: 28px;
   }
 
-  h1 {
-    text-align: center;
+  .page-header .eyebrow {
+    font-size: 0.7rem;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 20px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6366f1;
+    margin-bottom: 6px;
   }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2328;
+    letter-spacing: -0.02em;
+  }
+
+  .page-header .date-label {
+    font-size: 0.82rem;
+    color: #57606a;
+    margin-top: 4px;
+  }
+
+  /* ── カード ── */
+  .card {
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #57606a;
+    margin-bottom: 16px;
+  }
+
+  /* ── フィールド ── */
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   label {
     display: block;
-    margin-top: 12px;
-    margin-bottom: 4px;
-    font-size: 0.9rem;
-    color: #444;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #57606a;
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .required {
+    color: #cf222e;
+    margin-left: 3px;
+    font-size: 0.68rem;
   }
 
   input, textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    padding: 10px 12px;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
     font-size: 0.9rem;
-    background: #fafafa;
-    box-sizing: border-box;
+    color: #1f2328;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
+
+  input::placeholder, textarea::placeholder {
+    color: #8c959f;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    background: #ffffff;
+  }
+
+  input.error { border-color: #cf222e; box-shadow: 0 0 0 3px rgba(207,34,46,0.1); }
+
+  .error-msg {
+    font-size: 0.73rem;
+    color: #cf222e;
+    margin-top: 4px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
 
   textarea {
-    min-height: 70px;
+    min-height: 84px;
     resize: vertical;
+    line-height: 1.65;
   }
 
-  button {
-    margin-top: 20px;
+  /* ── 振り返りフィールド ── */
+  .reflect-field {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #d0d7de;
+  }
+
+  .reflect-field:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .reflect-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .reflect-label .bar {
+    width: 3px;
+    height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .good  .bar { background: #3fb950; }
+  .bad   .bar { background: #f85149; }
+  .learn .bar { background: #58a6ff; }
+  .next  .bar { background: #bc8cff; }
+
+  .reflect-label span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #57606a;
+  }
+
+  .reflect-field textarea {
+    background: #ffffff;
+    border-color: #d0d7de;
+    min-height: 78px;
+  }
+
+  /* ── 送信ボタン ── */
+  .submit-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: white;
-    background: #7baaf7; /* 柔らかいパステルブルー */
+    color: #ffffff;
+    background: #6366f1;
     cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.15s, opacity 0.15s, transform 0.1s;
+    margin-top: 4px;
   }
 
-  button:hover {
-    background: #6c9bf0;
+  .submit-btn:hover { background: #4f46e5; }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
   }
 
-  #status {
-    margin-top: 12px;
-    font-size: 0.9rem;
-    color: #333;
-    text-align: center;
-  }
-
+  /* ── 送信完了画面 ── */
   #success-screen {
     display: none;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    padding: 52px 24px 40px;
     text-align: center;
-    padding: 48px 24px;
-    animation: fadeIn 0.4s ease;
+    animation: fadeUp 0.4s ease;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .check-circle {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 24px;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
   }
 
   .check-circle circle {
     fill: none;
-    stroke: #7baaf7;
-    stroke-width: 4;
+    stroke: #6366f1;
+    stroke-width: 3;
     stroke-dasharray: 226;
     stroke-dashoffset: 226;
     animation: drawCircle 0.5s ease forwards;
@@ -105,84 +221,133 @@
 
   .check-circle polyline {
     fill: none;
-    stroke: #7baaf7;
-    stroke-width: 4;
+    stroke: #6366f1;
+    stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 60;
     stroke-dashoffset: 60;
-    animation: drawCheck 0.35s ease 0.45s forwards;
+    animation: drawCheck 0.3s ease 0.45s forwards;
   }
 
-  @keyframes drawCircle {
-    to { stroke-dashoffset: 0; }
-  }
-
-  @keyframes drawCheck {
-    to { stroke-dashoffset: 0; }
-  }
+  @keyframes drawCircle { to { stroke-dashoffset: 0; } }
+  @keyframes drawCheck  { to { stroke-dashoffset: 0; } }
 
   #success-screen h2 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #333;
-    margin-bottom: 8px;
+    color: #1f2328;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
   }
 
   #success-screen .sub {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 24px;
+    font-size: 0.85rem;
+    color: #57606a;
+    margin-bottom: 28px;
   }
 
   .message-card {
-    background: #f2f7ff;
-    border-radius: 12px;
-    padding: 16px 20px;
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.6;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-align: left;
   }
 
-  .message-card .label {
-    font-size: 0.75rem;
-    color: #7baaf7;
+  .message-card .mlabel {
+    font-size: 0.67rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    color: #6366f1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .message-card p {
+    font-size: 0.87rem;
+    color: #57606a;
+    line-height: 1.75;
   }
 </style>
 </head>
 
 <body>
-<div class="container">
-  <h1>外来振り返り</h1>
 
-  <label>日付</label>
-  <input type="date" id="date" />
+<div id="form-wrapper">
 
-  <label>名前</label>
-  <input type="text" id="name" placeholder="例：長田" />
+  <div class="page-header">
+    <div class="eyebrow">Outpatient Reflection</div>
+    <h1>外来振り返り</h1>
+    <div class="date-label" id="today-label"></div>
+  </div>
 
-  <label>患者数</label>
-  <input type="number" id="count" min="0" />
+  <!-- 基本情報 -->
+  <div class="card">
+    <div class="section-label">基本情報</div>
 
-  <label>できたこと</label>
-  <textarea id="good"></textarea>
+    <div class="row">
+      <div class="field">
+        <label>日付 <span class="required">*</span></label>
+        <input type="date" id="date" />
+        <div class="error-msg" id="date-err">日付を入力してください</div>
+      </div>
+      <div class="field">
+        <label>名前 <span class="required">*</span></label>
+        <input type="text" id="name" />
+        <div class="error-msg" id="name-err">名前を入力してください</div>
+      </div>
+    </div>
 
-  <label>できなかったこと</label>
-  <textarea id="bad"></textarea>
+    <div class="field" style="margin-bottom:0">
+      <label>患者数</label>
+      <input type="number" id="count" min="0" placeholder="0" />
+    </div>
+  </div>
 
-  <label>今日の学び</label>
-  <textarea id="learning"></textarea>
+  <!-- 振り返り -->
+  <div class="card">
+    <div class="section-label">振り返り</div>
 
-  <label>Next Step</label>
-  <textarea id="next"></textarea>
+    <div class="reflect-field good">
+      <div class="reflect-label">
+        <div class="bar"></div>
+        <span>できたこと</span>
+      </div>
+      <textarea id="good"></textarea>
+    </div>
 
-  <button id="sendBtn">スプレッドシートに送信</button>
-  <div id="status"></div>
+    <div class="reflect-field bad">
+      <div class="reflect-label">
+        <div class="bar"></div>
+        <span>できなかったこと</span>
+      </div>
+      <textarea id="bad"></textarea>
+    </div>
+
+    <div class="reflect-field learn">
+      <div class="reflect-label">
+        <div class="bar"></div>
+        <span>今日の学び</span>
+      </div>
+      <textarea id="learning"></textarea>
+    </div>
+
+    <div class="reflect-field next">
+      <div class="reflect-label">
+        <div class="bar"></div>
+        <span>Next Step</span>
+      </div>
+      <textarea id="next"></textarea>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="sendBtn">振り返りを記録する</button>
+
 </div>
 
-<div class="container" id="success-screen">
+<!-- 送信完了 -->
+<div id="success-screen">
   <svg class="check-circle" viewBox="0 0 80 80">
     <circle cx="40" cy="40" r="36"/>
     <polyline points="22,40 34,52 58,28"/>
@@ -190,53 +355,99 @@
   <h2>送信しました</h2>
   <p class="sub">外来お疲れさまでした。</p>
   <div class="message-card">
-    <div class="label">今日のひとこと</div>
-    <div id="daily-message"></div>
+    <div class="mlabel">Today's Note</div>
+    <p id="daily-message"></p>
   </div>
 </div>
 
 <script>
-document.getElementById("sendBtn").addEventListener("click", async () => {
-  const payload = {
-    date: document.getElementById("date").value,
-    name: document.getElementById("name").value,
-    count: document.getElementById("count").value,
-    good: document.getElementById("good").value,
-    bad: document.getElementById("bad").value,
-    learning: document.getElementById("learning").value,
-    next: document.getElementById("next").value
-  };
+  // 今日の日付を自動入力
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm   = String(today.getMonth() + 1).padStart(2, '0');
+  const dd   = String(today.getDate()).padStart(2, '0');
+  document.getElementById("date").value = `${yyyy}-${mm}-${dd}`;
 
-  const url = "https://script.google.com/macros/s/AKfycbx_b_GCs6hzzjmJxuqwB8c3g6yuEQ1YcTe3Uc-V3iduNvjEEIh_m8K8pNJwNH1BN8re/exec";  // ←あなたのGASのWeb App URL
+  const weekdays = ["日","月","火","水","木","金","土"];
+  document.getElementById("today-label").textContent =
+    `${yyyy}年${mm}月${dd}日（${weekdays[today.getDay()]}）`;
 
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload)
-    });
+  // 名前をlocalStorageから復元
+  const savedName = localStorage.getItem("reflection_name");
+  if (savedName) document.getElementById("name").value = savedName;
 
-    const messages = [
-      "振り返りを続けることが、最速の成長につながります。",
-      "今日の気づきが、明日の自信になります。",
-      "できなかったことを書けるのは、誠実な医師の証です。",
-      "一歩一歩の積み重ねが、確かな力になっています。",
-      "患者さんのために考え続けるあなたは、すでに良い医師です。",
-      "今日の外来、よく頑張りました。",
-      "記録することで、自分の成長が見えてきます。",
-      "悩んだ分だけ、診療の引き出しが増えています。",
-    ];
-    document.getElementById("daily-message").textContent =
-      messages[Math.floor(Math.random() * messages.length)];
-    document.querySelector(".container").style.display = "none";
-    document.getElementById("success-screen").style.display = "block";
-  } catch (e) {
-    document.getElementById("status").textContent = "送信に失敗しました";
-  }
-});
+  // 送信
+  document.getElementById("sendBtn").addEventListener("click", async () => {
+    const dateVal = document.getElementById("date").value;
+    const nameVal = document.getElementById("name").value.trim();
+
+    let hasError = false;
+    if (!dateVal) {
+      document.getElementById("date").classList.add("error");
+      document.getElementById("date-err").classList.add("show");
+      hasError = true;
+    } else {
+      document.getElementById("date").classList.remove("error");
+      document.getElementById("date-err").classList.remove("show");
+    }
+    if (!nameVal) {
+      document.getElementById("name").classList.add("error");
+      document.getElementById("name-err").classList.add("show");
+      hasError = true;
+    } else {
+      document.getElementById("name").classList.remove("error");
+      document.getElementById("name-err").classList.remove("show");
+    }
+    if (hasError) return;
+
+    localStorage.setItem("reflection_name", nameVal);
+
+    const btn = document.getElementById("sendBtn");
+    btn.disabled = true;
+    btn.textContent = "送信中...";
+
+    const payload = {
+      date:     dateVal,
+      name:     nameVal,
+      count:    document.getElementById("count").value,
+      good:     document.getElementById("good").value,
+      bad:      document.getElementById("bad").value,
+      learning: document.getElementById("learning").value,
+      next:     document.getElementById("next").value
+    };
+
+    const url = "https://script.google.com/macros/s/AKfycbx_b_GCs6hzzjmJxuqwB8c3g6yuEQ1YcTe3Uc-V3iduNvjEEIh_m8K8pNJwNH1BN8re/exec";
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const messages = [
+        "振り返りを続けることが、最速の成長につながります。",
+        "今日の気づきが、明日の自信になります。",
+        "できなかったことを書けるのは、誠実な医師の証です。",
+        "一歩一歩の積み重ねが、確かな力になっています。",
+        "患者さんのために考え続けるあなたは、すでに良い医師です。",
+        "今日の外来、よく頑張りました。",
+        "記録することで、自分の成長が見えてきます。",
+        "悩んだ分だけ、診療の引き出しが増えています。",
+      ];
+      document.getElementById("daily-message").textContent =
+        messages[Math.floor(Math.random() * messages.length)];
+
+      document.getElementById("form-wrapper").style.display = "none";
+      document.getElementById("success-screen").style.display = "block";
+
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = "振り返りを記録する";
+      alert("送信に失敗しました。もう一度お試しください。");
+    }
+  });
 </script>
 
 </body>
